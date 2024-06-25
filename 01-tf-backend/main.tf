@@ -10,6 +10,11 @@ terraform {
       version = "~> 3.6.2"
     }
   }
+  required_version = ">= 1.5"
+
+  backend "pg" {
+   schema_name = "backend_state"    
+  }
 }
 
 
