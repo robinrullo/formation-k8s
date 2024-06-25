@@ -25,3 +25,9 @@ RUN curl -sS https://starship.rs/install.sh | sh -s -- --yes && \
 
 
 COPY .zshrc /home/vscode/.zshrc
+
+RUN apt-get install -y kubectx && \
+    ln -s /usr/bin/kubectx /usr/local/bin/kubectl-ctx && \
+    ln -s /usr/bin/kubens /usr/local/bin/kubectl-ns
+
+RUN apt-get install -y fzf
