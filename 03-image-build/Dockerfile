@@ -11,5 +11,7 @@ RUN npm clean-install
 
 COPY . .
 
-ENTRYPOINT [ "node" ]
+RUN chmod +x entrypoint.sh
+
+ENTRYPOINT [ "/app/entrypoint.sh" ]
 CMD [ "index.js" ]
