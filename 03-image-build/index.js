@@ -10,3 +10,13 @@ app.get('/', (_, res) => {
 app.listen(port, () => {
   console.log(`Example app listening on port ${port}`)
 })
+
+process.on('SIGINT', () => {
+  console.log('Received SIGINT.')
+  process.exit(0)
+})
+
+process.on('SIGTERM', () => {
+  console.log('Received SIGTERM.')
+  process.exit(0)
+})
