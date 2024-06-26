@@ -61,7 +61,7 @@ use `terraform init -backend-config="conn_str=YOUR_CONN_STR"` equals to `backend
 
 # 6 - Ingress / Helm
 - k create namespace ingress-nginx
-- k ns => nginx-ingress
+- k ns nginx-ingress
 ```
 # helm upgrade --install Release Nom_du_chart
 helm upgrade --install ingress-nginx ingress-nginx --repo https://kubernetes.github.io/ingress-nginx --namespace ingress-nginx --create-namespace
@@ -77,3 +77,19 @@ helm upgrade --install ingress-nginx ingress-nginx --repo https://kubernetes.git
 - `k apply -f serviceaccount.yml`
 - `k apply -f role.yml`
 - `k apply -f rolebindings.yml`
+
+# 05 secrets
+- `helm repo add external-secrets https://charts.external-secrets.io`
+- `helm upgrade --install external-secrets --namespace=external-secrets --create-namespace external-secrets/external-secrets`
+- `k ns external-secrets`
+
+Création de l'application dans scaleway :
+- tf init -backend-config="conn_str=YOUR_CONN_STR"
+- tf plan
+- tf apply
+Ajout du secret dans k8s :
+- k create secret generic external-secrets --from-literal=accessKey=$SCW_ACCESS_KEY --from-literal=secretKey=$SCW_SECRET_KEY -n external-secrets
+- k apply -f secretstore.yml
+- k get ss
+- k apply -f externalsecret.yml
+- k get secrets -o json test | jq '.data'
