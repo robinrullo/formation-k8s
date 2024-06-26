@@ -71,3 +71,9 @@ helm upgrade --install ingress-nginx ingress-nginx --repo https://kubernetes.git
 - `k apply -f ingress.yml`
 - `k get ingress`
 - `curl -k https://ADDRESS/`
+
+# RBAC
+- `cd 04-deploy-app`
+- `k apply -f serviceaccount.yml`
+- `k apply -f role.yml`
+- `k apply -f rolebindings.yml`
