@@ -1,21 +1,21 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: myapp
+  name: myapp2
   labels:
-    app: myapp
+    app: myapp2
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: myapp
+      app: myapp2
   template:
     metadata:
       labels:
-        app: myapp
+        app: myapp2
     spec:
       containers:
-      - name: myapp
+      - name: myapp2
         image: rg.fr-par.scw.cloud/learn_k8s_rrullo_staging/app:main
       imagePullSecrets:
         - name: registry-secret

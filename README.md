@@ -50,3 +50,11 @@ use `terraform init -backend-config="conn_str=YOUR_CONN_STR"` equals to `backend
 - `k get secret registry-secret -o json | jq '.data.".dockerconfigjson"' -r | base64 -d | jq '.'`
 - `k get po`
 - `k logs mypod`
+
+- Création d'un service
+- `k apply -f service.yml`
+- `k get svc`
+- `k get ep` (endpoints)
+- Remplacement de myapp par myapp2 dans le fichier deployement puis redéploiement (`k apply -f deployment.yml`)
+- `k exec -it myapp2-... -- bash`
+- S'il n'y a pas curl ni wget => `printf '' >> /dev/tcp/myapp/8080` puis `echo $?`. Si 0 => connexion établie, sinon => erreur.
