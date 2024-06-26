@@ -1,0 +1,18 @@
+controller:
+  # Do not use Deployment if using `externalTrafficPolicy: "Local"`
+  kind: DaemonSet
+  service:
+    # Your LB IP here if you want (optional)
+    #loadBalancerIP: "X.X.X.X"
+    # This means that each node will deliver traffic only to the node-local endpoints of the service,
+    # without masquerading the client source IP. (Traffic mistakenly sent to a node with no endpoints will be dropped.)
+    externalTrafficPolicy: "Local"
+    annotations:
+      # Configure the Scaleway LB to use Proxy-Protocol
+      service.beta.kubernetes.io/scw-loadbalancer-proxy-protocol-v2: "true"
+      service.beta.kubernetes.io/scw-loadbalancer-use-hostname: "true"
+  config:
+    # Configure the ingress controller to use Proxy-Protocol
+    use-forwarded-headers: "true"
+    compute-full-forwarded-for: "true"
+    use-proxy-protocol: "true"

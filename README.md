@@ -58,3 +58,16 @@ use `terraform init -backend-config="conn_str=YOUR_CONN_STR"` equals to `backend
 - Remplacement de myapp par myapp2 dans le fichier deployement puis redéploiement (`k apply -f deployment.yml`)
 - `k exec -it myapp2-... -- bash`
 - S'il n'y a pas curl ni wget => `printf '' >> /dev/tcp/myapp/8080` puis `echo $?`. Si 0 => connexion établie, sinon => erreur.
+
+# 6 - Ingress / Helm
+- k create namespace ingress-nginx
+- k ns => nginx-ingress
+```
+# helm upgrade --install Release Nom_du_chart
+helm upgrade --install ingress-nginx ingress-nginx --repo https://kubernetes.github.io/ingress-nginx --namespace ingress-nginx --create-namespace
+```
+- `k get pods`
+- cd ../04-deploy-app
+- `k apply -f ingress.yml`
+- `k get ingress`
+- `curl -k https://ADDRESS/`
