@@ -23,3 +23,30 @@ use `terraform init -backend-config="conn_str=YOUR_CONN_STR"` equals to `backend
 - `tf plan`
 - `tf workspace show`
 - `tf workspace new staging`
+- `tf output -json kubeconfig | jq '.[].config_file' -r > ~/.kube/config`
+
+## 3
+- Replace $REGISTRY
+  ```
+  docker buildx build \
+    --push \
+    --platform=linux/amd64 \
+    --tag=$REGISTRY \
+  ```
+
+## 4
+- Utilisation de kube-ctx et kube-ns (`k ctx` et `k ns` pour sélectionner les contextes et namespaces par défaut)
+- `k get po` pour voir les pods
+- `k api-resources` pour voir les ressources disponibles (noms, abréviations, api versions, kind).
+- `k create namespace myapp` pour créer un namespace
+- Création d'un déployment (deployment.yml):
+  ```
+  # NAME                                SHORTNAMES                          APIVERSION                             NAMESPACED   KIND
+  # deployments                         deploy                              apps/v1                                true         Deployment
+  ```
+- `k scale deploy --replicas=0` pour redémarrer les pods
+- `k get replicaset` pour voir les replicaset
+- `kubectl create secret docker-registry registry-secret --docker-server=rg.fr-par.scw.cloud --docker-username=learn_k8s_rrullo_staging --docker-password=$API_TOKEN`
+- `k get secret registry-secret -o json | jq '.data.".dockerconfigjson"' -r | base64 -d | jq '.'`
+- `k get po`
+- `k logs mypod`
