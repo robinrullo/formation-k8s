@@ -124,3 +124,7 @@ Ajout du secret dans k8s :
 - `cd 07-observability`
 - `helm repo add grafana https://grafana.github.io/helm-charts`
 - `helm upgrade --install promtail grafana/promtail --values promtail.values.yaml --namespace promtail --create-namespace`
+
+# 8 - PVC
+- `cd 04-deploy-app`
+- `k apply -f pvc.yml`
