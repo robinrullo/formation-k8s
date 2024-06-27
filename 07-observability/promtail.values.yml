@@ -1,0 +1,6 @@
+config:
+  clients:
+    - url: https://2262b5e6-07ac-4e23-b0ac-d97a232032f6.logs.cockpit.fr-par.scw.cloud/loki/api/v1/push
+      basic_auth:
+        username: <secret_key>
+        password: <cockpit_token>

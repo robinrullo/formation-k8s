@@ -1,6 +1,6 @@
 {
     "name": "myapp",
-    "version": "1.0.0",
+    "version": "0.2.0",
     "description": "",
     "main": "index.js",
     "scripts": {
@@ -9,6 +9,7 @@
     "author": "",
     "license": "ISC",
     "dependencies": {
-        "express": "^4.19.2"
+        "express": "^4.19.2",
+        "prom-client": "^15.1.3"
     }
 }

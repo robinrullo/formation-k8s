@@ -1,0 +1,8 @@
+server:
+  remoteWrite:
+    - url: https://63661a74-2738-42f9-99d8-97b0abd1e27d.metrics.cockpit.fr-par.scw.cloud/api/v1/push
+      basic_auth:
+        username: <secret_key>
+        password: <cockpit_token>
+alertmanager:
+  enabled: false

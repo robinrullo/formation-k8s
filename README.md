@@ -93,3 +93,34 @@ Ajout du secret dans k8s :
 - k get ss
 - k apply -f externalsecret.yml
 - k get secrets -o json test | jq '.data'
+
+# 7 Observabilité
+- `cd 07-observability`
+- Création d'un utilisateur grafana. https://console.scaleway.com/cockpit/users
+- Création de 2 datasources externes : 1 type metrics 1 type logs. https://console.scaleway.com/cockpit/dataSource
+- `Création d'un token avec les permissions push metrics et push logs`
+- `helm repo add prometheus-community https://prometheus-community.github.io/helm-charts`
+- `helm upgrade --install prometheus prometheus-community/prometheus --values prometheus.values.yaml --namespace prometheus --create-namespace`
+- `cd 03-image-build`
+- modification de l'index.js pour exposer les metrics prometheus
+  ```
+  const client = require('prom-client');
+  const collectDefaultMetrics = client.collectDefaultMetrics;
+  const Registry = client.Registry;
+  const register = new Registry();
+  collectDefaultMetrics({ register });
+  
+  // Endpoint to expose the metrics
+  app.get('/metrics', async (req, res) => {
+    res.set('Content-Type', register.contentType);
+    res.end(await register.metrics());
+  });
+  ```
+- `docker buildx build --push --platform=linux/amd64 --tag=$REGISTRY .`
+- `modification du tag de l'image dans deployment.yml`
+- `k ns myapp`
+- `k apply -f deployment`
+- Pour les logs:
+- `cd 07-observability`
+- `helm repo add grafana https://grafana.github.io/helm-charts`
+- `helm upgrade --install promtail grafana/promtail --values promtail.values.yaml --namespace promtail --create-namespace`
